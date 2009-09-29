@@ -1,0 +1,5 @@
+usbmuxd (1.0.0~rc2-0ubuntu1) lucid; urgency=low
+
+  * Initial release (LP: #479467)
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Tue, 29 Sep 2009 20:30:18 +0200
