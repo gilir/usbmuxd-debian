@@ -1,7 +1,7 @@
 Source: usbmuxd
 Section: utils
 Priority: optional
-Maintainer: Julien Lavergne <gilir@ubuntu.com>
+Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
 Standards-Version: 3.8.3
 Build-Depends: debhelper (>= 7), libusb-1.0-0-dev (>= 1.0.3), cmake
 

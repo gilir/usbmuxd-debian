@@ -1,5 +1,5 @@
-usbmuxd (1.0.0~rc2-0ubuntu1) lucid; urgency=low
+usbmuxd (1.0.0~rc2-1) unstable; urgency=low
 
-  * Initial release (LP: #479467)
+  * Initial release (Closes: #)
 
- -- Julien Lavergne <gilir@ubuntu.com>  Tue, 29 Sep 2009 20:30:18 +0200
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Tue, 29 Sep 2009 20:30:18 +0200
