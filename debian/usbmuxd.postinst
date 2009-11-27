@@ -1,37 +1,26 @@
 #!/bin/sh
-# Copyright Jonathan Beck <jonabeck@gmail.com>
+#Based on gdm script
 
 set -e
 
-case "$1" in
-  configure|install|upgrade)
+# creating plugdev group if he isn't already there
+if ! getent group plugdev >/dev/null; then
+        addgroup --system plugdev
+fi
 
-       # Sane defaults:
+# creating usbmux user if he isn't already there
+if ! getent passwd usbmux >/dev/null; then
+        adduser --system --ingroup plugdev --home /var/run/usbmuxd usbmux
+        usermod -c "Usbmux daemon"        usbmux
+        usermod -d "/var/run/usbmuxd"     usbmux
+        usermod -g "plugdev"              usbmux
+fi
 
-       [ -z "$USBMUX_HOME" ] && USBMUX_HOME=/var/run
-       [ -z "$USBMUX_USER" ] && USBMUX_USER=usbmux
-       [ -z "$USBMUX_NAME" ] && USBMUX_NAME="usbmuxd daemon"
-       [ -z "$USBMUX_GROUP" ] && USBMUX_GROUP=plugdev
+if [ -d /var/run/usbmuxd ]; then
+  chown usbmux:usbmux /var/run/usbmuxd
+  chmod 0750 /var/run/usbmuxd
+fi
 
-       # create user to avoid running server as root
-       # 1. create group if not existing
-       if ! getent group | grep -q "^$USBMUX_GROUP:" ; then
-          echo -n "Adding group $USBMUX_GROUP.."
-          addgroup --quiet --system $USBMUX_GROUP 2>/dev/null ||true
-          echo "..done"
-       fi
-       # 2. create user if not existing
-       if ! getent passwd | grep -q "^$USBMUX_USER:"; then
-         echo -n "Adding system user $USBMUX_USER.."
-         adduser --quiet \
-                 --system \
-                 --ingroup $USBMUX_GROUP \
-                 --no-create-home \
-                 --disabled-password \
-                 $USBMUX_USER 2>/dev/null || true
-         echo "..done"
-       fi
-       ;;
 esac
 
 #DEBHELPER#

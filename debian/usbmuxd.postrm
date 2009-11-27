@@ -1,0 +1,23 @@
+#!/bin/sh
+#Based on gdm script
+
+#!/bin/sh
+set -e
+
+if [ "$1" = "purge" ] ; then
+        if [ -d /var/run/usbmuxd ]; then
+                rm -r /var/run/usbmuxd
+        fi
+        if getent passwd usbmux >/dev/null; then
+                if [ -x /usr/sbin/deluser ]; then
+                        deluser --system usbmux
+                fi
+        fi
+        if getent group plugdev >/dev/null; then
+                if [ -x /usr/sbin/delgroup ]; then
+                        delgroup --system plugdev
+                fi
+        fi
+fi
+#DEBHELPER#
+exit 0
