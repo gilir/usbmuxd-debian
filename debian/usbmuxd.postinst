@@ -21,6 +21,4 @@ if [ -d /var/run/usbmuxd ]; then
   chmod 0750 /var/run/usbmuxd
 fi
 
-esac
-
 #DEBHELPER#
