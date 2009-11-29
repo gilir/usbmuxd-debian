@@ -17,7 +17,7 @@ if ! getent passwd usbmux >/dev/null; then
 fi
 
 if [ -d /var/run/usbmuxd ]; then
-  chown usbmux:usbmux /var/run/usbmuxd
+  chown usbmux /var/run/usbmuxd
   chmod 0750 /var/run/usbmuxd
 fi
 
