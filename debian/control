@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 7), libusb-1.0-0-dev (>= 1.0.3), cmake
 
 Package: usbmuxd
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
 Description: Socket daemon to multiplex connections from and to the iPhone
  A socket daemon to multiplex connections from and to the iPhone.
 

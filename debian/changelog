@@ -1,5 +1,5 @@
 usbmuxd (1.0.0~rc2-1) unstable; urgency=low
 
-  * Initial release (Closes: #)
+  * Initial release (Closes: #558310)
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Tue, 29 Sep 2009 20:30:18 +0200
