@@ -9,7 +9,7 @@ fi
 
 # creating usbmux user if he isn't already there
 if ! getent passwd usbmux >/dev/null; then
-        adduser --system --ingroup plugdev --no-create-home usbmux
+        adduser --system --ingroup plugdev --no-create-home --gecos usbmux usbmux
 fi
 
 #DEBHELPER#
