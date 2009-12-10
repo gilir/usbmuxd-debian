@@ -1,5 +1,4 @@
 #!/bin/sh
-#Based on gdm script
 
 set -e
 
@@ -10,15 +9,7 @@ fi
 
 # creating usbmux user if he isn't already there
 if ! getent passwd usbmux >/dev/null; then
-        adduser --system --ingroup plugdev --home /var/run/usbmuxd usbmux
-        usermod -c "Usbmux daemon"        usbmux
-        usermod -d "/var/run/usbmuxd"     usbmux
-        usermod -g "plugdev"              usbmux
-fi
-
-if [ -d /var/run/usbmuxd ]; then
-  chown usbmux /var/run/usbmuxd
-  chmod 0750 /var/run/usbmuxd
+        adduser --system --ingroup plugdev --no-create-home usbmux
 fi
 
 #DEBHELPER#
