@@ -8,17 +8,21 @@ Build-Depends: debhelper (>= 7), libusb-1.0-0-dev (>= 1.0.3), cmake
 Package: usbmuxd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
-Description: Daemon to access iPhone devises over USB
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
- and coordinating access to its services by other applications.
+Description: USB multiplexor daemon for iPhone and iPod Touch devices
+ usbmuxd, the USB multiplexor daemon, is in charge of coordinating
+ access to iPhone and iPod Touch services over USB. Synchronization and
+ management applications for the iPhone and iPod Touch need this daemon
+ to communicate with such devices concurrently.
 
 Package: libusbmuxd1
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Daemon to access iPhone devises over USB - library
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
- and coordinating access to its services by other applications.
+Description: USB multiplexor daemon for iPhone and iPod Touch devices - library
+ usbmuxd, the USB multiplexor daemon, is in charge of coordinating
+ access to iPhone and iPod Touch services over USB. Synchronization and
+ management applications for the iPhone and iPod Touch need this daemon
+ to communicate with such devices concurrently.
  .
  This package contains the shared library.
 
@@ -26,9 +30,11 @@ Package: libusbmuxd-dev
 Architecture: any
 Section: libdevel
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
-Description: Daemon to access iPhone devises over USB - development files
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
- and coordinating access to its services by other applications.
+Description: USB multiplexor daemon for iPhone and iPod Touch devices - devel
+ usbmuxd, the USB multiplexor daemon, is in charge of coordinating
+ access to iPhone and iPod Touch services over USB. Synchronization and
+ management applications for the iPhone and iPod Touch need this daemon
+ to communicate with such devices concurrently.
  .
  This package contains the development files.
 
@@ -37,8 +43,10 @@ Architecture: any
 Section: debug
 Priority: extra
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
-Description: Daemon to access iPhone devises over USB - debug
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
- and coordinating access to its services by other applications.
+Description: USB multiplexor daemon for iPhone and iPod Touch devices - debug
+ usbmuxd, the USB multiplexor daemon, is in charge of coordinating
+ access to iPhone and iPod Touch services over USB. Synchronization and
+ management applications for the iPhone and iPod Touch need this daemon
+ to communicate with such devices concurrently.
  .
  This package contains the debugging symbols.
