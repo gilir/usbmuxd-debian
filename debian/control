@@ -8,15 +8,17 @@ Build-Depends: debhelper (>= 7), libusb-1.0-0-dev (>= 1.0.3), cmake
 Package: usbmuxd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
-Description: Socket daemon to multiplex connections from and to the iPhone
- A socket daemon to multiplex connections from and to the iPhone.
+Description: Daemon to access iPhone devises over USB
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
+ coordinating access to its services by other applications.
 
 Package: libusbmuxd1
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Socket daemon to multiplex connections from and to the iPhone
- A socket daemon to multiplex connections from and to the iPhone.
+Description: Daemon to access iPhone devises over USB - library
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
+ coordinating access to its services by other applications.
  .
  This package contains the shared library.
 
@@ -24,8 +26,9 @@ Package: libusbmuxd-dev
 Architecture: any
 Section: libdevel
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
-Description: Socket daemon to multiplex connections from and to the iPhone
- A socket daemon to multiplex connections from and to the iPhone.
+Description: Daemon to access iPhone devises over USB - development files
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
+ coordinating access to its services by other applications.
  .
  This package contains the development files.
 
@@ -34,7 +37,8 @@ Architecture: any
 Section: debug
 Priority: extra
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
-Description: Socket daemon to multiplex connections from and to the iPhone
- A socket daemon to multiplex connections from and to the iPhone.
+Description: Daemon to access iPhone devises over USB - debug
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
+ coordinating access to its services by other applications.
  .
  This package contains the debugging symbols.
