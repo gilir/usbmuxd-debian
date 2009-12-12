@@ -9,16 +9,16 @@ Package: usbmuxd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
 Description: Daemon to access iPhone devises over USB
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
- coordinating access to its services by other applications.
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
+ and coordinating access to its services by other applications.
 
 Package: libusbmuxd1
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Daemon to access iPhone devises over USB - library
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
- coordinating access to its services by other applications.
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
+ and coordinating access to its services by other applications.
  .
  This package contains the shared library.
 
@@ -27,8 +27,8 @@ Architecture: any
 Section: libdevel
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
 Description: Daemon to access iPhone devises over USB - development files
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
- coordinating access to its services by other applications.
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
+ and coordinating access to its services by other applications.
  .
  This package contains the development files.
 
@@ -38,7 +38,7 @@ Section: debug
 Priority: extra
 Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
 Description: Daemon to access iPhone devises over USB - debug
- usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB and 
- coordinating access to its services by other applications.
+ usbmuxd is a socket daemon which talks to your iPhone or iPod Touch over USB
+ and coordinating access to its services by other applications.
  .
  This package contains the debugging symbols.
