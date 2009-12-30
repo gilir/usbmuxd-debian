@@ -1,3 +1,9 @@
+usbmuxd (1.0.0-2) UNRELEASED; urgency=low
+
+  * 
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
+
 usbmuxd (1.0.0-1) unstable; urgency=low
 
   * Initial release (Closes: #558310)
