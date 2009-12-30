@@ -12,57 +12,20 @@ else
     CFLAGS += -O2
 endif
 
-BUILDDIR=$(CURDIR)/debian/build
+configure_flags += \
+			-DCMAKE_INSTALL_PREFIX="/usr" \
+			-DCMAKE_SKIP_RPATH=true \
+			-DLIB_SUFFIX= \
+			-DUSB_PKGCONF_INCLUDE_DIRS="/usr/include/libusb-1.0"
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	mkdir -p $(BUILDDIR)
-	cd $(BUILDDIR) && cmake ../.. -DCMAKE_INSTALL_PREFIX="/usr" \
-		-DCMAKE_SKIP_RPATH=true \
-		-DLIB_SUFFIX= \
-		-DUSB_PKGCONF_INCLUDE_DIRS="/usr/include/libusb-1.0"
-	touch $@
+%:
+	dh $@
 
-build: build-stamp
-build-stamp: configure
-	dh_testdir
-	$(MAKE) -C $(BUILDDIR)
-	touch $@
+override_dh_auto_configure:
+	dh_auto_configure -- 	$(configure_flags)
 
-clean:
-	dh_testdir
-	dh_testroot
-	[ ! -f Makefile ] || $(MAKE) clean
-	rm -f build-stamp configure-stamp
-	rm -rf $(BUILDDIR)
-	dh_clean
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	$(MAKE) -C $(BUILDDIR) DESTDIR=$(CURDIR)/debian/tmp install
-
-binary-indep: build install
-
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs
-	dh_installman
+override_dh_install:
 	dh_install --fail-missing
-	dh_link
-	dh_strip --dbg-package=libusbmuxd1-dbg
-	dh_compress
-	dh_fixperms
-	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+override_dh_strip:
+	dh_strip --dbg-package=libusbmuxd1-dbg

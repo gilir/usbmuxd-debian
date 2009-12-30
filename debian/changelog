@@ -1,6 +1,8 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
-  * 
+  * debian/rules: Rewrited to use dh7.
+  * debian/control: Set debhelper build-depends to (>= 7.0.50~), using override
+    in debian/rules.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
 
