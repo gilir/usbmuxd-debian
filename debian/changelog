@@ -1,8 +1,12 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
   * debian/rules: Rewrited to use dh7.
-  * debian/control: Set debhelper build-depends to (>= 7.0.50~), using override
-    in debian/rules.
+  * debian/control: Set debhelper build-depends to (>= 7.0.50~), using
+    overrides in debian/rules.
+  * debian/copyright:
+   - Licence the package under LGPL2.1+ and set the copyright to me, the parts
+     based on another package was rewritten. Closes: #562572
+   - Fix typo in licence notice.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
 
