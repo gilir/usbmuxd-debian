@@ -3,11 +3,15 @@ Section: utils
 Priority: optional
 Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
 Standards-Version: 3.8.3
-Build-Depends: debhelper (>= 7.0.50~), libusb-1.0-0-dev (>= 1.0.3), cmake
+Build-Depends: debhelper (>= 7.0.50~), 
+               libusb-1.0-0-dev (>= 1.0.3), 
+               cmake
 
 Package: usbmuxd
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
+Depends: ${shlibs:Depends}, 
+         ${misc:Depends}, 
+         adduser
 Description: USB multiplexor daemon for iPhone and iPod Touch devices
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
  access to iPhone and iPod Touch services over USB. Synchronization and
@@ -17,7 +21,8 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices
 Package: libusbmuxd1
 Architecture: any
 Section: libs
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, 
+         ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - library
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
  access to iPhone and iPod Touch services over USB. Synchronization and
@@ -29,7 +34,8 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices - library
 Package: libusbmuxd-dev
 Architecture: any
 Section: libdevel
-Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
+Depends: libusbmuxd1 (= ${binary:Version}), 
+         ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - devel
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
  access to iPhone and iPod Touch services over USB. Synchronization and
@@ -42,7 +48,8 @@ Package: libusbmuxd1-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: libusbmuxd1 (= ${binary:Version}), ${misc:Depends}
+Depends: libusbmuxd1 (= ${binary:Version}), 
+         ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - debug
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
  access to iPhone and iPod Touch services over USB. Synchronization and
