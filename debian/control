@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
 Standards-Version: 3.8.3
 Build-Depends: debhelper (>= 7.0.50~), 
-               libusb-1.0-0-dev (>= 1.0.3), 
+               libusb-1.0-0-dev (>= 1.0.3)[!kfreebsd-i386 !kfreebsd-amd64], 
+               libusb2-dev [kfreebsd-i386 kfreebsd-amd64],
                cmake
 
 Package: usbmuxd
