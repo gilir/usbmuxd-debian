@@ -14,7 +14,7 @@ usbmuxd (1.0.0-2) UNRELEASED; urgency=low
    - Licence the package under LGPL2.1+ and set the copyright to me, the parts
      based on another package was rewritten. Closes: #562572
    - Fix typo in license notice.
-  * debian/01-libs.private.patch: Use Libs.private in *.pc files to not add
+  * debian/01-libs.private.patch: Use Requires.private in *.pc files to not add
     unecessary links.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
