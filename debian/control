@@ -7,6 +7,8 @@ Build-Depends: debhelper (>= 7.0.50~),
                libusb-1.0-0-dev (>= 1.0.3)[!kfreebsd-i386 !kfreebsd-amd64], 
                libusb2-dev [kfreebsd-i386 kfreebsd-amd64],
                cmake
+Vcs-Git: git://github.com/gilir/usbmuxd-debian.git
+Vcs-Browser: http://github.com/gilir/usbmuxd-debian/tree
 
 Package: usbmuxd
 Architecture: any
