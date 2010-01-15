@@ -1,6 +1,6 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
-  * debian/rules: Rewrited to use dh7.
+  * debian/rules: Rewrited to use dh7 and quilt.
   * debian/substvars: Define libusb:depends to bring correct libusb library
     for each architecture.
   * debian/control: 
