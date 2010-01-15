@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Julien Lavergne <julien.lavergne@gmail.com>
 Standards-Version: 3.8.3
 Build-Depends: debhelper (>= 7.0.50~), 
+               quilt (>= 0.46-7),
                ${libusb:depends},
                cmake
 Vcs-Git: git://github.com/gilir/usbmuxd-debian.git
