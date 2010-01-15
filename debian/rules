@@ -19,7 +19,7 @@ configure_flags += \
 			-DUSB_PKGCONF_INCLUDE_DIRS="/usr/include/libusb-1.0"
 
 %:
-	dh --with-quilt $@
+	dh --with quilt $@
 
 override_dh_auto_configure:
 	dh_auto_configure -- 	$(configure_flags)
