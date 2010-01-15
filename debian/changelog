@@ -1,13 +1,11 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
   * debian/rules: Rewrited to use dh7 and quilt.
-  * debian/substvars: Define libusb:depends to bring correct libusb library
-    for each architecture.
   * debian/control: 
    - Set debhelper build-depends to (>= 7.0.50~), using overrides in 
      debian/rules.
    - Wrap build-depends and depends.
-   - Build-depends on ${libusb:depends}, defined in debian/substvars.
+   - Build-depends on libusb2-dev on kfreebsd.
    - Build-depends on quilt (>= 0.46-7) for quilt support.
    - Add VCS-* fields.
   * debian/copyright:

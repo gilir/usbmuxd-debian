@@ -1,1 +1,0 @@
-libusb:depends=libusb-1.0-0-dev (>= 1.0.3) | libusb2-dev (>= 8.0-4)
