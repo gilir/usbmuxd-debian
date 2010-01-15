@@ -1,11 +1,13 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
   * debian/rules: Rewrited to use dh7.
+  * debian/substvars: Define libusb:depends to bring correct libusb library
+    for each architecture.
   * debian/control: 
    - Set debhelper build-depends to (>= 7.0.50~), using overrides in 
      debian/rules.
    - Wrap build-depends and depends.
-   - Build-depends on libusb2-dev for kfreebsd.
+   - Build-depends on ${libusb:depends}, define in debian/substvars.
    - Add VCS-* fields.
   * debian/copyright:
    - Licence the package under LGPL2.1+ and set the copyright to me, the parts
