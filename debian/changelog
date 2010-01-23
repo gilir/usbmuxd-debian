@@ -1,4 +1,4 @@
-usbmuxd (1.0.0-2) UNRELEASED; urgency=low
+usbmuxd (1.0.0-2) unstable; urgency=low
 
   * debian/rules: Rewrited to use dh7.
   * debian/control: 
@@ -16,7 +16,7 @@ usbmuxd (1.0.0-2) UNRELEASED; urgency=low
     unecessary links.
   * Switch to dpkg-source 3.0 (quilt) format
 
- -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sat, 23 Jan 2010 16:53:27 +0100
 
 usbmuxd (1.0.0-1) unstable; urgency=low
 
