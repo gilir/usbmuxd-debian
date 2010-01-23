@@ -1,12 +1,11 @@
 usbmuxd (1.0.0-2) UNRELEASED; urgency=low
 
-  * debian/rules: Rewrited to use dh7 and quilt.
+  * debian/rules: Rewrited to use dh7.
   * debian/control: 
    - Set debhelper build-depends to (>= 7.0.50~), using overrides in 
      debian/rules.
    - Wrap build-depends and depends.
    - Build-depends on libusb2-dev on kfreebsd.
-   - Build-depends on quilt (>= 0.46-7) for quilt support.
    - Add VCS-* fields.
    - Add depends on libusb-1.0-0-dev for libusbmuxd-dev.
   * debian/copyright:
@@ -15,7 +14,7 @@ usbmuxd (1.0.0-2) UNRELEASED; urgency=low
    - Fix typo in license notice.
   * debian/01-libs.private.patch: Use Requires.private in *.pc files to not add
     unecessary links.
-  * debian/README.source: Add with quilt support.
+  * Switch to dpkg-source 3.0 (quilt) format
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 30 Dec 2009 18:09:18 +0100
 
