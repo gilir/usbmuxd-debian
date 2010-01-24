@@ -11,8 +11,8 @@ usbmuxd (1.0.0-2) unstable; urgency=low
    - Licence the package under LGPL2.1+ and set the copyright to me, the parts
      based on another package was rewritten. Closes: #562572
    - Fix typo in license notice.
-  * debian/01-libs.private.patch: Use Requires.private in *.pc files to not add
-    unecessary links.
+  * debian/01-libs.private.patch: Remove Requires in *.pc file, libusb is only
+    used in the daemon.
   * Switch to dpkg-source 3.0 (quilt) format
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Sat, 23 Jan 2010 16:53:27 +0100
