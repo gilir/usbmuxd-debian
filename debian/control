@@ -37,7 +37,6 @@ Package: libusbmuxd-dev
 Architecture: any
 Section: libdevel
 Depends: libusbmuxd1 (= ${binary:Version}),
-         libusb-1.0-0-dev,
          ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - devel
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
