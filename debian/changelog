@@ -1,3 +1,9 @@
+usbmuxd (1.0.2-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Sun, 07 Mar 2010 13:48:20 +0100
+
 usbmuxd (1.0.0-2) unstable; urgency=low
 
   * debian/rules: Rewriten to use dh7.
