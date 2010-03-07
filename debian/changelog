@@ -5,6 +5,8 @@ usbmuxd (1.0.2-1) UNRELEASED; urgency=low
    - Bump Standards-Version to 3.8.4, no change needed.
   * debian/usbmuxd.docs
    - Install README, README.devel and AUTHORS (Closes: #568758)
+  * debian/patches/02-udev-usbmux-owner.patch 
+   - Make sure devises are owned by usbmux (Closes: #572867)
 
  -- Julien Lavergne <gilir@ubuntu.com>  Sun, 07 Mar 2010 13:48:20 +0100
 
