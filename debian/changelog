@@ -1,4 +1,4 @@
-usbmuxd (1.0.2-1) UNRELEASED; urgency=low
+usbmuxd (1.0.2-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control:
@@ -9,7 +9,7 @@ usbmuxd (1.0.2-1) UNRELEASED; urgency=low
   * debian/patches/02-udev-usbmux-owner.patch 
    - Make sure devises are owned by usbmux (Closes: #572867)
 
- -- Julien Lavergne <gilir@ubuntu.com>  Sun, 07 Mar 2010 13:48:20 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 07 Mar 2010 14:22:22 +0100
 
 usbmuxd (1.0.0-2) unstable; urgency=low
 
