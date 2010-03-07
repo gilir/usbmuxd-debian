@@ -3,6 +3,7 @@ usbmuxd (1.0.2-1) UNRELEASED; urgency=low
   * New upstream release.
   * debian/control:
    - Bump Standards-Version to 3.8.4, no change needed.
+   - Add Homepage field.
   * debian/usbmuxd.docs
    - Install README, README.devel and AUTHORS (Closes: #568758)
   * debian/patches/02-udev-usbmux-owner.patch 
