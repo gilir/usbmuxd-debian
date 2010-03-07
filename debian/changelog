@@ -7,7 +7,7 @@ usbmuxd (1.0.2-1) unstable; urgency=low
   * debian/usbmuxd.docs
    - Install README, README.devel and AUTHORS (Closes: #568758)
   * debian/patches/02-udev-usbmux-owner.patch 
-   - Make sure devises are owned by usbmux (Closes: #572867)
+   - Set the owner to usbmux to fix permissions issues (Closes: #572867)
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 07 Mar 2010 14:22:22 +0100
 
