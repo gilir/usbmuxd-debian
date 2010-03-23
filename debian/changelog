@@ -1,3 +1,10 @@
+usbmuxd (1.0.3-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * debian/patches/02-udev-usbmux-owner.patch: Refreshed.
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Tue, 23 Mar 2010 19:37:05 +0100
+
 usbmuxd (1.0.2-1) unstable; urgency=low
 
   * New upstream release.
