@@ -89,7 +89,7 @@ struct mux_connection
 	uint16_t sport, dport;
 	uint32_t tx_seq, tx_ack, tx_acked, tx_win;
 	uint32_t rx_seq, rx_recvd, rx_ack, rx_win;
-	int max_payload;
+	uint32_t max_payload;
 	uint32_t sendable;
 	int flags;
 	unsigned char *ib_buf;
@@ -322,7 +322,12 @@ int device_start_connect(int device_id, uint16_t dport, struct mux_client *clien
 
 static void update_connection(struct mux_connection *conn)
 {
-	conn->sendable = conn->rx_win - (conn->tx_seq - conn->rx_ack);
+	uint32_t sent = conn->tx_seq - conn->rx_ack;
+
+	if(conn->rx_win > sent)
+		conn->sendable = conn->rx_win - sent;
+	else
+		conn->sendable = 0;
 
 	if(conn->sendable > conn->ob_capacity)
 		conn->sendable = conn->ob_capacity;
