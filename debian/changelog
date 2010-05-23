@@ -2,6 +2,8 @@ usbmuxd (1.0.4-1) UNRELEASED; urgency=low
 
   * New upstream release.
    - Add Apple iPad USB IDs. Closes: #576474
+  * debian/control:
+   - Mention that usbmuxd only runs when devices are connected. Closes: #577269
 
  -- Julien Lavergne <gilir@ubuntu.com>  Sun, 23 May 2010 21:40:10 +0200
 

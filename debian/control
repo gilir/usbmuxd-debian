@@ -20,6 +20,9 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices
  access to iPhone and iPod Touch services over USB. Synchronization and
  management applications for the iPhone and iPod Touch need this daemon
  to communicate with such devices concurrently.
+ .
+ This package includes udev rules to start the daemon when a supported
+ device is plugged in, and stop it when all devices are removed.
 
 Package: libusbmuxd1
 Architecture: any
