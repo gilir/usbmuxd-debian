@@ -1,6 +1,7 @@
 usbmuxd (1.0.4-1) UNRELEASED; urgency=low
 
   * New upstream release.
+   - Add Apple iPad USB IDs. Closes: #576474
 
  -- Julien Lavergne <gilir@ubuntu.com>  Sun, 23 May 2010 21:40:10 +0200
 
