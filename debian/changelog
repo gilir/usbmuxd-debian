@@ -6,6 +6,7 @@ usbmuxd (1.0.4-1) UNRELEASED; urgency=low
    - Mention that usbmuxd only runs when devices are connected. Closes: #577269
   * debian/patches
    - 01-libs.private.patch: Remove, merged upstream.
+   - 02-udev-usbmux-owner.patch: Refreshed.
 
  -- Julien Lavergne <gilir@ubuntu.com>  Sun, 23 May 2010 21:40:10 +0200
 
