@@ -1,4 +1,4 @@
-usbmuxd (1.0.5-1) UNRELEASED; urgency=low
+usbmuxd (1.0.5-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control:
@@ -7,7 +7,7 @@ usbmuxd (1.0.5-1) UNRELEASED; urgency=low
      Closes: #585634
    - Bump Standards-Version to 3.9.0.0.
  
- -- Julien Lavergne <gilir@ubuntu.com>  Sun, 25 Jul 2010 22:35:19 +0200
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 25 Jul 2010 22:55:34 +0200
 
 usbmuxd (1.0.4-1) unstable; urgency=low
 
