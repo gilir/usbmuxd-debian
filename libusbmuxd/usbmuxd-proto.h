@@ -28,7 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <stdint.h>
 #define USBMUXD_PROTOCOL_VERSION 0
 
+#if defined(WIN32) || defined(__CYGWIN__)
+#define USBMUXD_SOCKET_PORT 27015
+#else
 #define USBMUXD_SOCKET_FILE "/var/run/usbmuxd"
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 enum usbmuxd_result {
 	RESULT_OK = 0,
@@ -48,7 +56,7 @@ enum usbmuxd_msgtype {
 	MESSAGE_DEVICE_REMOVE = 5,
 	//???
 	//???
-	//MESSAGE_PLIST = 8,
+	MESSAGE_PLIST = 8,
 };
 
 struct usbmuxd_header {
@@ -81,5 +89,9 @@ struct usbmuxd_device_record {
 	uint16_t padding;
 	uint32_t location;
 } __attribute__((__packed__));
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __USBMUXD_PROTO_H */

@@ -1,7 +1,10 @@
 find_package(USB REQUIRED)
 include_directories(${USB_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${USB_LIBRARIES})
-
+set(LIBS ${LIBS} ${USB_LIBRARIES} ${OPT_LIBS})
+if(HAVE_PLIST)
+  add_definitions("-DHAVE_PLIST")
+  message("-- usbmuxd will be built with protocol version 1 support")
+endif()
 include_directories (${CMAKE_SOURCE_DIR}/common)
 include_directories (${CMAKE_SOURCE_DIR}/daemon)
 include_directories (${CMAKE_SOURCE_DIR}/libusbmuxd)
