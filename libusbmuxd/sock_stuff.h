@@ -27,16 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <stdint.h>
 
 enum fd_mode {
-	FD_READ,
-	FD_WRITE,
-	FD_EXCEPT
+	FDM_READ,
+	FDM_WRITE,
+	FDM_EXCEPT
 };
 typedef enum fd_mode fd_mode;
 
+#ifndef WIN32
 int create_unix_socket(const char *filename);
 int connect_unix_socket(const char *filename);
+#endif
 int create_socket(uint16_t port);
+#if defined(WIN32) || defined(__CYGWIN__)
 int connect_socket(const char *addr, uint16_t port);
+#endif
 int check_fd(int fd, fd_mode fdm, unsigned int timeout);
 
 int recv_buf(int fd, void *data, size_t size);

@@ -29,11 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <errno.h>
 #include <sys/time.h>
 #include <sys/stat.h>
+#ifdef WIN32
+#include <windows.h>
+#include <winsock2.h>
+static int wsa_init = 0;
+#else
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <netinet/in.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#endif
 #include "sock_stuff.h"
 
 #define RECV_TIMEOUT 20000
@@ -45,6 +51,7 @@ void sock_stuff_set_verbose(int level)
 	verbose = level;
 }
 
+#ifndef WIN32
 int create_unix_socket(const char *filename)
 {
 	struct sockaddr_un name;
@@ -136,11 +143,22 @@ int connect_unix_socket(const char *filename)
 
 	return sfd;
 }
+#endif
 
 int create_socket(uint16_t port)
 {
 	int sfd = -1;
 	int yes = 1;
+#ifdef WIN32
+	WSADATA wsa_data;
+	if (!wsa_init) {
+		if (WSAStartup(MAKEWORD(2,2), &wsa_data) != ERROR_SUCCESS) {
+			fprintf(stderr, "WSAStartup failed!\n");
+			ExitProcess(-1);
+		}
+		wsa_init = 1;
+	}
+#endif
 	struct sockaddr_in saddr;
 
 	if (0 > (sfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP))) {
@@ -174,12 +192,23 @@ int create_socket(uint16_t port)
 	return sfd;
 }
 
+#if defined(WIN32) || defined(__CYGWIN__)
 int connect_socket(const char *addr, uint16_t port)
 {
 	int sfd = -1;
 	int yes = 1;
 	struct hostent *hp;
 	struct sockaddr_in saddr;
+#ifdef WIN32
+	WSADATA wsa_data;
+	if (!wsa_init) {
+		if (WSAStartup(MAKEWORD(2,2), &wsa_data) != ERROR_SUCCESS) {
+			fprintf(stderr, "WSAStartup failed!\n");
+			ExitProcess(-1);
+		}
+		wsa_init = 1;
+	}
+#endif
 
 	if (!addr) {
 		errno = EINVAL;
@@ -223,6 +252,7 @@ int connect_socket(const char *addr, uint16_t port)
 
 	return sfd;
 }
+#endif /* WIN32 || __CYGWIN__ */
 
 int check_fd(int fd, fd_mode fdm, unsigned int timeout)
 {
@@ -254,13 +284,13 @@ int check_fd(int fd, fd_mode fdm, unsigned int timeout)
 	do {
 		eagain = 0;
 		switch (fdm) {
-		case FD_READ:
+		case FDM_READ:
 			sret = select(fd + 1, &fds, NULL, NULL, pto);
 			break;
-		case FD_WRITE:
+		case FDM_WRITE:
 			sret = select(fd + 1, NULL, &fds, NULL, pto);
 			break;
-		case FD_EXCEPT:
+		case FDM_EXCEPT:
 			sret = select(fd + 1, NULL, NULL, &fds, pto);
 			break;
 		default:
@@ -308,7 +338,7 @@ int recv_buf_timeout(int fd, void *data, size_t length, int flags,
 	int result;
 
 	// check if data is available
-	res = check_fd(fd, FD_READ, timeout);
+	res = check_fd(fd, FDM_READ, timeout);
 	if (res <= 0) {
 		return res;
 	}
