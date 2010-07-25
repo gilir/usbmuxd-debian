@@ -3,6 +3,8 @@ usbmuxd (1.0.5-1) UNRELEASED; urgency=low
   * New upstream release.
   * debian/control:
    - Build-depends on libplist-dev (>= 0.15) to activate plist support.
+   - Use better build-depends for libusb. Thanks Aurelien Jarno for the advise.
+     Closes: #585634
 
  -- Julien Lavergne <gilir@ubuntu.com>  Sun, 25 Jul 2010 22:35:19 +0200
 
