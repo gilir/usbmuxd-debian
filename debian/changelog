@@ -8,6 +8,8 @@ usbmuxd (1.0.5-1) unstable; urgency=low
    - Bump Standards-Version to 3.9.0.0.
   * debian/patch/03-revert-ifdef-USBMUXD_DAEMON.patch:
    - Revert upstream commit which only help WIN32 compilation.
+  * debian/libusbmuxd1.symbols:
+   - Updated.
  
  -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 25 Jul 2010 22:55:34 +0200
 

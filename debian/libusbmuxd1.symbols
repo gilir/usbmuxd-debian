@@ -5,7 +5,8 @@ libusbmuxd.so.1 libusbmuxd1 #MINVER#
  collection_free@Base 1.0.0
  collection_init@Base 1.0.0
  collection_remove@Base 1.0.0
- connect_socket@Base 1.0.0
+#Removed upstream, only used on WIN32 http://cgit.sukimashita.com/usbmuxd.git/commit/?id=5e9c1c28c6959a814818c7f3614ef84cadccf1c8
+#MISSING: 1.0.5-1# connect_socket@Base 1.0.0
  connect_unix_socket@Base 1.0.0
  create_socket@Base 1.0.0
  create_unix_socket@Base 1.0.0
