@@ -1,0 +1,43 @@
+#Revert commit http://cgit.sukimashita.com/usbmuxd.git/commit/?id=e492ed1d13b51f95b3b96e54d2c3d9076a1910b4
+#It was done to help WIN32 compilation, but it disable it also on non-WIN32.
+
+Index: usbmuxd/common/utils.c
+===================================================================
+--- usbmuxd.orig/common/utils.c	2010-10-09 16:53:03.000000000 +0200
++++ usbmuxd/common/utils.c	2010-10-09 16:53:29.000000000 +0200
+@@ -35,7 +35,6 @@
+ # define util_error(...) fprintf(stderr, __VA_ARGS__)
+ #endif
+ 
+-#ifdef USBMUXD_DAEMON
+ void fdlist_create(struct fdlist *list)
+ {
+ 	list->count = 0;
+@@ -71,7 +70,6 @@
+ {
+ 	list->count = 0;
+ }
+-#endif
+ 
+ void collection_init(struct collection *col)
+ {
+Index: usbmuxd/common/utils.h
+===================================================================
+--- usbmuxd.orig/common/utils.h	2010-10-09 16:53:05.000000000 +0200
++++ usbmuxd/common/utils.h	2010-10-09 16:53:40.000000000 +0200
+@@ -22,7 +22,6 @@
+ #ifndef __UTILS_H__
+ #define __UTILS_H__
+ 
+-#ifdef USBMUXD_DAEMON
+ #include <poll.h>
+ 
+ enum fdowner {
+@@ -42,7 +41,6 @@
+ void fdlist_add(struct fdlist *list, enum fdowner owner, int fd, short events);
+ void fdlist_free(struct fdlist *list);
+ void fdlist_reset(struct fdlist *list);
+-#endif
+ 
+ struct collection {
+ 	void **list;
