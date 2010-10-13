@@ -11,7 +11,7 @@ usbmuxd (1.0.5-1) experimental; urgency=low
   * debian/libusbmuxd1.symbols:
    - Updated.
  
- -- Julien Lavergne <gilir@ubuntu.com>  Wed, 13 Oct 2010 23:52:09 +0200
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 13 Oct 2010 23:52:09 +0200
 
 usbmuxd (1.0.4-1) unstable; urgency=low
 
