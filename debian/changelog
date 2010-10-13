@@ -5,7 +5,7 @@ usbmuxd (1.0.5-1) experimental; urgency=low
    - Build-depends on libplist-dev (>= 0.15) to activate plist support.
    - Use better build-depends for libusb. Thanks Aurelien Jarno for the advise.
      Closes: #585634
-   - Bump Standards-Version to 3.9.0.0.
+   - Bump Standards-Version to 3.9.1.0.
   * debian/patch/03-revert-ifdef-USBMUXD_DAEMON.patch:
    - Revert upstream commit which only help WIN32 compilation.
   * debian/libusbmuxd1.symbols:
