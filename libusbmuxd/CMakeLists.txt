@@ -11,6 +11,7 @@ endif()
 if(WIN32)
   set(OPT_LIBS ${OPT_LIBS} ws2_32)
 endif()
+include_directories(${OPT_INCLUDES})
 target_link_libraries (libusbmuxd ${CMAKE_THREAD_LIBS_INIT} ${OPT_LIBS})
 
 # 'lib' is a UNIXism, the proper CMake target is usbmuxd
@@ -19,6 +20,10 @@ target_link_libraries (libusbmuxd ${CMAKE_THREAD_LIBS_INIT} ${OPT_LIBS})
 set_target_properties(libusbmuxd PROPERTIES OUTPUT_NAME usbmuxd)
 set_target_properties(libusbmuxd PROPERTIES VERSION ${LIBUSBMUXD_VERSION})
 set_target_properties(libusbmuxd PROPERTIES SOVERSION ${LIBUSBMUXD_SOVERSION})
+
+if(APPLE)
+  set_target_properties(libusbmuxd PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}")
+endif()
 
 install(TARGETS libusbmuxd
 	RUNTIME DESTINATION bin
