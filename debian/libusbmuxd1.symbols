@@ -1,5 +1,6 @@
 libusbmuxd.so.1 libusbmuxd1 #MINVER#
  check_fd@Base 1.0.0
+ close_socket@Base 1.0.6
  collection_add@Base 1.0.0
  collection_count@Base 1.0.0
  collection_free@Base 1.0.0
