@@ -1,3 +1,9 @@
+usbmuxd (1.0.6-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Sun, 28 Nov 2010 00:13:01 +0100
+
 usbmuxd (1.0.5-1) experimental; urgency=low
 
   * New upstream release.
