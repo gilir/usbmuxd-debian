@@ -1,10 +1,10 @@
-usbmuxd (1.0.6-1) UNRELEASED; urgency=low
+usbmuxd (1.0.6-1) experimental; urgency=low
 
   * New upstream release.
   * debian/patches/02-udev-usbmux-owner.patch: Refresh.
   * debian/libusbmuxd1.symbols: Add new symbol.
 
- -- Julien Lavergne <gilir@ubuntu.com>  Sun, 28 Nov 2010 00:13:01 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 28 Nov 2010 00:23:47 +0100
 
 usbmuxd (1.0.5-1) experimental; urgency=low
 
