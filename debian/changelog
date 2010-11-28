@@ -3,6 +3,10 @@ usbmuxd (1.0.6-1) experimental; urgency=low
   * New upstream release.
   * debian/patches/02-udev-usbmux-owner.patch: Refresh.
   * debian/libusbmuxd1.symbols: Add new symbol.
+  * debian/rules:
+   - Remove additional CFLAGS to pass correct flags.
+   - Add additional LDFLAGS.
+   - Use filter instead of findstring to find noopt.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 28 Nov 2010 00:23:47 +0100
 
