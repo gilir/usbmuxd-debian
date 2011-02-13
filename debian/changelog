@@ -1,3 +1,9 @@
+usbmuxd (1.0.6-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Sun, 13 Feb 2011 23:34:34 +0100
+
 usbmuxd (1.0.6-1) experimental; urgency=low
 
   * New upstream release.
