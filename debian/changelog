@@ -1,7 +1,7 @@
 usbmuxd (1.0.6-3) UNRELEASED; urgency=low
 
   * debian/install:
-   - Don't install udev rules on all arch.
+   - Don't install udev rules on all archs.
   * debian/rules:
    - Install udev files only on archs which have udev.
 
