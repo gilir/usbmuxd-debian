@@ -3,8 +3,8 @@
 
 Index: usbmuxd/common/utils.c
 ===================================================================
---- usbmuxd.orig/common/utils.c	2010-10-09 16:53:03.000000000 +0200
-+++ usbmuxd/common/utils.c	2010-10-09 16:53:29.000000000 +0200
+--- usbmuxd.orig/common/utils.c	2010-11-28 00:19:47.000000000 +0100
++++ usbmuxd/common/utils.c	2011-03-20 13:59:11.000000000 +0100
 @@ -35,7 +35,6 @@
  # define util_error(...) fprintf(stderr, __VA_ARGS__)
  #endif
@@ -23,8 +23,8 @@ Index: usbmuxd/common/utils.c
  {
 Index: usbmuxd/common/utils.h
 ===================================================================
---- usbmuxd.orig/common/utils.h	2010-10-09 16:53:05.000000000 +0200
-+++ usbmuxd/common/utils.h	2010-10-09 16:53:40.000000000 +0200
+--- usbmuxd.orig/common/utils.h	2010-11-28 00:19:47.000000000 +0100
++++ usbmuxd/common/utils.h	2011-03-20 13:59:11.000000000 +0100
 @@ -22,7 +22,6 @@
  #ifndef __UTILS_H__
  #define __UTILS_H__

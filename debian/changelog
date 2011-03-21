@@ -1,11 +1,14 @@
-usbmuxd (1.0.6-3) UNRELEASED; urgency=low
+usbmuxd (1.0.6-3) unstable; urgency=low
 
   * debian/install:
    - Don't install udev rules on all archs.
   * debian/rules:
    - Install udev files only on archs which have udev.
+  * debian/patches/
+   - 90_extend_pid_range.patch: From upstream, add new PID for Ipad2, Iphone 5
+     and their variants.
 
- -- Julien Lavergne <gilir@ubuntu.com>  Sun, 20 Mar 2011 13:31:20 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Mon, 21 Mar 2011 18:13:48 +0100
 
 usbmuxd (1.0.6-2) unstable; urgency=low
 
