@@ -1,4 +1,4 @@
-usbmuxd (1.0.7-1) UNRELEASED; urgency=low
+usbmuxd (1.0.7-1) unstable; urgency=low
 
   * New upstream release.
   * debian/install:
@@ -8,7 +8,7 @@ usbmuxd (1.0.7-1) UNRELEASED; urgency=low
   * debian/patches
    - 02-udev-usbmux-owner.patch: Refreshed.
 
- -- Julien Lavergne <julien.lavergne@gmail.com>  Mon, 21 Mar 2011 18:13:48 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Tue, 22 Mar 2011 20:30:45 +0100
 
 usbmuxd (1.0.6-2) unstable; urgency=low
 
