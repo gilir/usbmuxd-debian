@@ -1,5 +1,6 @@
-usbmuxd (1.0.6-3) unstable; urgency=low
+usbmuxd (1.0.7-1) UNRELEASED; urgency=low
 
+  * New upstream release.
   * debian/install:
    - Don't install udev rules on all archs.
   * debian/rules:
