@@ -30,13 +30,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <windows.h>
 #include <winsock2.h>
 #define sleep(x) Sleep(x*1000)
+#define EPROTO 71
+#define EBADMSG 77
 #else
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 #endif
+
+#ifdef HAVE_INOTIFY
+#include <sys/inotify.h>
+#define EVENT_SIZE  (sizeof (struct inotify_event))
+#define EVENT_BUF_LEN (1024 * (EVENT_SIZE + 16))
+#define USBMUXD_DIRNAME "/var/run"
+#define USBMUXD_SOCKET_NAME "usbmuxd"
+#endif /* HAVE_INOTIFY */
+
 #include <unistd.h>
 #include <signal.h>
-#include <pthread.h>
 
 #ifdef HAVE_PLIST
 #include <plist/plist.h>
@@ -56,7 +67,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 static struct collection devices;
 static usbmuxd_event_cb_t event_cb = NULL;
+#ifdef WIN32
+HANDLE devmon = NULL;
+#else
 pthread_t devmon;
+#endif
 static int listenfd = -1;
 
 static int use_tag = 0;
@@ -374,19 +389,10 @@ static void generate_event(usbmuxd_event_cb_t callback, const usbmuxd_device_inf
 	callback(&ev, user_data);
 }
 
-/**
- * Tries to connect to usbmuxd and wait if it is not running.
- * 
- * TODO inotify support should come here
- */
-static int usbmuxd_listen()
+static int usbmuxd_listen_poll()
 {
 	int sfd;
-	uint32_t res = -1;
 
-#ifdef HAVE_PLIST
-retry:
-#endif
 	sfd = connect_usbmuxd_socket();
 	if (sfd < 0) {
 		while (event_cb) {
@@ -396,6 +402,86 @@ retry:
 			sleep(1);
 		}
 	}
+
+	return sfd;
+}
+
+#ifdef HAVE_INOTIFY
+static int usbmuxd_listen_inotify()
+{
+	int inot_fd;
+	int watch_fd;
+	int sfd;
+
+	sfd = connect_usbmuxd_socket();
+	if (sfd >= 0)
+		return sfd;
+
+	sfd = -1;
+	inot_fd = inotify_init ();
+	if (inot_fd < 0) {
+		fprintf (stderr, "Failed to setup inotify\n");
+		return -1;
+	}
+
+	/* inotify is setup, listen for events that concern us */
+	watch_fd = inotify_add_watch (inot_fd, USBMUXD_DIRNAME, IN_CREATE);
+	if (watch_fd < 0) {
+		fprintf (stderr, "Failed to setup watch for socket dir\n");
+		close (inot_fd);
+		return -1;
+	}
+
+	while (1) {
+		ssize_t len, i;
+		char buff[EVENT_BUF_LEN] = {0};
+
+		i = 0;
+		len = read (inot_fd, buff, EVENT_BUF_LEN -1);
+		if (len < 0)
+			goto end;
+		while (i < len) {
+			struct inotify_event *pevent = (struct inotify_event *) & buff[i];
+
+			/* check that it's ours */
+			if (pevent->mask & IN_CREATE &&
+			    pevent->len &&
+			    pevent->name != NULL &&
+			    strcmp(pevent->name, USBMUXD_SOCKET_NAME) == 0) {
+				sfd = connect_usbmuxd_socket ();
+				goto end;
+			}
+			i += EVENT_SIZE + pevent->len;
+		}
+	}
+
+end:
+	close(watch_fd);
+	close(inot_fd);
+
+	return sfd;
+}
+#endif /* HAVE_INOTIFY */
+
+/**
+ * Tries to connect to usbmuxd and wait if it is not running.
+ */
+static int usbmuxd_listen()
+{
+	int sfd;
+	uint32_t res = -1;
+
+#ifdef HAVE_PLIST
+retry:
+#endif
+
+#ifdef HAVE_INOTIFY
+	sfd = usbmuxd_listen_inotify();
+	if (sfd < 0)
+		sfd = usbmuxd_listen_poll();
+#else
+	sfd = usbmuxd_listen_poll();
+#endif
 
 	if (sfd < 0) {
 		fprintf(stderr, "%s: ERROR: usbmuxd was supposed to be running here...\n", __func__);
@@ -525,7 +611,15 @@ int usbmuxd_subscribe(usbmuxd_event_cb_t callback, void *user_data)
 	}
 	event_cb = callback;
 
+#ifdef WIN32
+	res = 0;
+	devmon = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)device_monitor, user_data, 0, NULL);
+	if (devmon == NULL) {
+		res = GetLastError();
+	}
+#else
 	res = pthread_create(&devmon, NULL, device_monitor, user_data);
+#endif
 	if (res != 0) {
 		fprintf(stderr, "%s: ERROR: Could not start device watcher thread!\n", __func__);
 		return res;
@@ -537,12 +631,20 @@ int usbmuxd_unsubscribe()
 {
 	event_cb = NULL;
 
+#ifdef WIN32
+	if (devmon != NULL) {
+		close_socket(listenfd);
+		listenfd = -1;
+		WaitForSingleObject(devmon, INFINITE);
+	}
+#else
 	if (pthread_kill(devmon, 0) == 0) {
 		close_socket(listenfd);
 		listenfd = -1;
 		pthread_kill(devmon, SIGINT);
 		pthread_join(devmon, NULL);
 	}
+#endif
 
 	return 0;
 }
