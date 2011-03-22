@@ -5,9 +5,6 @@ usbmuxd (1.0.7-1) UNRELEASED; urgency=low
    - Don't install udev rules on all archs.
   * debian/rules:
    - Install udev files only on archs which have udev.
-  * debian/patches/
-   - 90_extend_pid_range.patch: From upstream, add new PID for Ipad2, Iphone 5
-     and their variants.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Mon, 21 Mar 2011 18:13:48 +0100
 
