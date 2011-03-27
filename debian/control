@@ -9,8 +9,8 @@ Build-Depends: debhelper (>= 7.0.50~),
                cmake,
                libplist-dev (>= 0.15)
 Homepage: http://marcansoft.com/blog/iphonelinux/usbmuxd/
-Vcs-Git: git://github.com/gilir/usbmuxd-debian.git
-Vcs-Browser: http://github.com/gilir/usbmuxd-debian/tree
+Vcs-Git: git://git.debian.org/git/pkg-gtkpod/packages/usbmuxd.git
+Vcs-Browser: http://git.debian.org/?p=pkg-gtkpod/packages/usbmuxd.git
 
 Package: usbmuxd
 Architecture: any
