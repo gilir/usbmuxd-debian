@@ -1,10 +1,13 @@
-usbmuxd (1.0.7-2) UNRELEASED; urgency=low
+usbmuxd (1.0.7-2) UNRELEASED; urgency=high
 
   * debian/control:
    - Update Maintainer field, and add me to Uploaders.
    - Update Vcs-*.
+  * debian/patches/90-cve-2012-0065.patch:
+   - From upstream, fix possible buffer overflow (CVE-2012-0065).
+     Closes: #656581
 
- -- Julien Lavergne <gilir@ubuntu.com>  Fri, 25 Mar 2011 21:56:00 +0100
+ -- Julien Lavergne <gilir@ubuntu.com>  Fri, 20 Jan 2012 22:44:47 +0100
 
 usbmuxd (1.0.7-1) unstable; urgency=low
 
