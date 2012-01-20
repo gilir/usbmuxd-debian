@@ -1,4 +1,4 @@
-usbmuxd (1.0.7-2) UNRELEASED; urgency=high
+usbmuxd (1.0.7-2) unstable; urgency=high
 
   * debian/control:
    - Update Maintainer field, and add me to Uploaders.
@@ -7,7 +7,7 @@ usbmuxd (1.0.7-2) UNRELEASED; urgency=high
    - From upstream, fix possible buffer overflow (CVE-2012-0065).
      Closes: #656581
 
- -- Julien Lavergne <gilir@ubuntu.com>  Fri, 20 Jan 2012 22:44:47 +0100
+ -- Julien Lavergne <julien.lavergne@gmail.com>  Fri, 20 Jan 2012 22:49:38 +0100
 
 usbmuxd (1.0.7-1) unstable; urgency=low
 
