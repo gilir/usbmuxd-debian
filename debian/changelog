@@ -10,7 +10,7 @@ usbmuxd (1.0.8-1) experimental; urgency=low
   * debian/control:
    - Update to match new SONAME.
    - Update Standards-Version to 3.9.3 (no change needed).
-   - Build-depend son debhelper (>= 9).
+   - Build-depend on debhelper (>= 9).
   * debian/rules:
    - Update to match new SONAME.
    - Use DEB_*_MAINT_APPEND.
