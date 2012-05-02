@@ -5,9 +5,12 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
    - 90-cve-2012-0065.patch: Remove, merged upstream.
    - 02-udev-usbmux-owner.patch: Refreshed.
    - 03-revert-ifdef-USBMUXD_DAEMON.patch: Refreshed.
+  * debian/compat
+   - Update to 9.
   * debian/control:
    - Update to match new SONAME.
    - Update Standards-Version to 3.9.3 (no change needed).
+   - Build-depend son debhelper (>= 9).
   * debian/rules:
    - Update to match new SONAME.
   * debian/libusbmuxd*.install & debian/libusbmuxd*.symbols

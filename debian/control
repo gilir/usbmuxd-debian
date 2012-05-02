@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: gtkpod Maintainers <pkg-gtkpod-devel@lists.alioth.debian.org>
 Uploaders: Julien Lavergne <julien.lavergne@gmail.com>
 Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 7.0.50~),
+Build-Depends: debhelper (>= 9),
                libusb-1.0-0-dev (>= 1.0.3) [linux-any],
                libusb2-dev (>= 8.0-4) [kfreebsd-any],
                cmake,
