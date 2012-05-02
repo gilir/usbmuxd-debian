@@ -27,7 +27,7 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices
  This package includes udev rules to start the daemon when a supported
  device is plugged in, and stop it when all devices are removed.
 
-Package: libusbmuxd1
+Package: libusbmuxd2
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends}, 
@@ -53,7 +53,7 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices - devel
  .
  This package contains the development files.
 
-Package: libusbmuxd1-dbg
+Package: libusbmuxd2-dbg
 Architecture: any
 Section: debug
 Priority: extra
