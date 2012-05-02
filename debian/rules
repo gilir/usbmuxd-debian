@@ -35,4 +35,4 @@ endif
 	dh_install --fail-missing
 
 override_dh_strip:
-	dh_strip --dbg-package=libusbmuxd1-dbg
+	dh_strip --dbg-package=libusbmuxd2-dbg

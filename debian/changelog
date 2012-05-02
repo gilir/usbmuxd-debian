@@ -7,6 +7,8 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
    - 03-revert-ifdef-USBMUXD_DAEMON.patch: Refreshed.
   * debian/control:
    - Update to match new SONAME.
+  * debian/rules:
+   - Update to match new SONAME. 
   * debian/watch:
    - Update location of the tarballs.
 
