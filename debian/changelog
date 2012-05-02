@@ -3,6 +3,7 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
   * New upstream release.
   * debian/patches:
    - 90-cve-2012-0065.patch: Remove, merged upstream.
+   - 02-udev-usbmux-owner.patch: Refreshed.
   * debian/watch:
    - Update location of the tarballs.
 
