@@ -13,6 +13,7 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
    - Build-depend son debhelper (>= 9).
   * debian/rules:
    - Update to match new SONAME.
+   - Use DEB_*_MAINT_APPEND.
   * debian/libusbmuxd*.install & debian/libusbmuxd*.symbols
    - Update to match new SONAME.
   * debian/libusbmuxd2.symbols:
