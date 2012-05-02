@@ -13,6 +13,8 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
    - Update to match new SONAME.
   * debian/watch:
    - Update location of the tarballs.
+  * debian/copyright:
+   - Update with new licence on common/*.
 
  -- Julien Lavergne <gilir@ubuntu.com>  Wed, 02 May 2012 10:26:30 +0200
 

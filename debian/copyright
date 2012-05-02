@@ -27,6 +27,7 @@ On Debian systems, the complete text of the GNU General Public License
 can be found in `/usr/share/common-licenses/GPL-2'.
 
 Files: libusbmuxd/*
+       common/utils.*
 Copyright:
  Copyright (C) 2009	Hector Martin "marcan" <hector@marcansoft.com>
  Copyright (C) 2009	Nikias Bassen <nikias@gmx.li>
