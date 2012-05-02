@@ -43,7 +43,7 @@ Description: USB multiplexor daemon for iPhone and iPod Touch devices - library
 Package: libusbmuxd-dev
 Architecture: any
 Section: libdevel
-Depends: libusbmuxd1 (= ${binary:Version}),
+Depends: libusbmuxd2 (= ${binary:Version}),
          ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - devel
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
@@ -57,7 +57,7 @@ Package: libusbmuxd2-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: libusbmuxd1 (= ${binary:Version}), 
+Depends: libusbmuxd2 (= ${binary:Version}), 
          ${misc:Depends}
 Description: USB multiplexor daemon for iPhone and iPod Touch devices - debug
  usbmuxd, the USB multiplexor daemon, is in charge of coordinating
