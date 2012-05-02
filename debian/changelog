@@ -21,7 +21,7 @@ usbmuxd (1.0.8-1) experimental; urgency=low
   * debian/watch:
    - Update location of the tarballs.
   * debian/copyright:
-   - Update with new licence on common/*.
+   - Update with new license on common/*.
 
  -- Julien Lavergne <julien.lavergne@gmail.com>  Wed, 02 May 2012 12:20:18 +0200
 
