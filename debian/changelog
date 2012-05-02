@@ -1,3 +1,10 @@
+usbmuxd (1.0.7-3) UNRELEASED; urgency=low
+
+  * debian/watch:
+   - Update location of the tarballs. 
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Wed, 02 May 2012 10:26:30 +0200
+
 usbmuxd (1.0.7-2) unstable; urgency=high
 
   * debian/control:
