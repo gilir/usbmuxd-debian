@@ -8,7 +8,9 @@ usbmuxd (1.0.8-1) UNRELEASED; urgency=low
   * debian/control:
    - Update to match new SONAME.
   * debian/rules:
-   - Update to match new SONAME. 
+   - Update to match new SONAME.
+  * debian/libusbmuxd*.install & debian/libusbmuxd*.symbols
+   - Update to match new SONAME.
   * debian/watch:
    - Update location of the tarballs.
 
