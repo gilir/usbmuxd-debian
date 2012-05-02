@@ -1,2 +1,2 @@
 version=3
-http://www.libimobiledevice.org/downloads/usbmuxd-([\d\.]+).tar.bz2
+http://libimobiledevice.org/ downloads/usbmuxd-(.+)\.tar\.bz2
