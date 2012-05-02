@@ -71,6 +71,7 @@ static usbmuxd_event_cb_t event_cb = NULL;
 HANDLE devmon = NULL;
 #else
 pthread_t devmon;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
 static int listenfd = -1;
 
@@ -189,7 +190,7 @@ static int receive_packet(int sfd, struct usbmuxd_header *header, void **payload
 				char *strval = NULL;
 				plist_get_string_val(n, &strval);
 				if (strval) {
-					strcpy(dev->serial_number, strval);
+					strncpy(dev->serial_number, strval, 255);
 					free(strval);
 				}
 				n = plist_dict_get_item(props, "LocationID");
@@ -410,7 +411,7 @@ static int usbmuxd_listen_poll()
 static int usbmuxd_listen_inotify()
 {
 	int inot_fd;
-	int watch_fd;
+	int watch_d;
 	int sfd;
 
 	sfd = connect_usbmuxd_socket();
@@ -421,15 +422,15 @@ static int usbmuxd_listen_inotify()
 	inot_fd = inotify_init ();
 	if (inot_fd < 0) {
 		fprintf (stderr, "Failed to setup inotify\n");
-		return -1;
+		return -2;
 	}
 
 	/* inotify is setup, listen for events that concern us */
-	watch_fd = inotify_add_watch (inot_fd, USBMUXD_DIRNAME, IN_CREATE);
-	if (watch_fd < 0) {
-		fprintf (stderr, "Failed to setup watch for socket dir\n");
+	watch_d = inotify_add_watch (inot_fd, USBMUXD_DIRNAME, IN_CREATE);
+	if (watch_d < 0) {
+		fprintf (stderr, "Failed to setup watch descriptor for socket dir\n");
 		close (inot_fd);
-		return -1;
+		return -2;
 	}
 
 	while (1) {
@@ -456,7 +457,7 @@ static int usbmuxd_listen_inotify()
 	}
 
 end:
-	close(watch_fd);
+	inotify_rm_watch(inot_fd, watch_d);
 	close(inot_fd);
 
 	return sfd;
@@ -477,7 +478,7 @@ retry:
 
 #ifdef HAVE_INOTIFY
 	sfd = usbmuxd_listen_inotify();
-	if (sfd < 0)
+	if (sfd == -2)
 		sfd = usbmuxd_listen_poll();
 #else
 	sfd = usbmuxd_listen_poll();
@@ -526,6 +527,7 @@ int get_next_event(int sfd, usbmuxd_event_cb_t callback, void *user_data)
 		FOREACH(usbmuxd_device_info_t *dev, &devices) {
 			generate_event(callback, dev, UE_DEVICE_REMOVE, user_data);
 			collection_remove(&devices, dev);
+			free(dev);
 		} ENDFOREACH
 		return -EIO;
 	}
@@ -546,8 +548,12 @@ int get_next_event(int sfd, usbmuxd_event_cb_t callback, void *user_data)
 
 		devinfo->handle = dev->device_id;
 		devinfo->product_id = dev->product_id;
-		memset(devinfo->uuid, '\0', sizeof(devinfo->uuid));
-		memcpy(devinfo->uuid, dev->serial_number, sizeof(devinfo->uuid));
+		memset(devinfo->udid, '\0', sizeof(devinfo->udid));
+		memcpy(devinfo->udid, dev->serial_number, sizeof(devinfo->udid));
+
+		if (strcasecmp(devinfo->udid, "ffffffffffffffffffffffffffffffffffffffff") == 0) {
+			sprintf(devinfo->udid + 32, "%08x", devinfo->handle);
+		}
 
 		collection_add(&devices, devinfo);
 		generate_event(callback, devinfo, UE_DEVICE_ADD, user_data);
@@ -563,14 +569,23 @@ int get_next_event(int sfd, usbmuxd_event_cb_t callback, void *user_data)
 		} else {
 			generate_event(callback, devinfo, UE_DEVICE_REMOVE, user_data);
 			collection_remove(&devices, devinfo);
+			free(devinfo);
 		}
-	} else {
+	} else if (hdr.length > 0) {
 		fprintf(stderr, "%s: Unexpected message type %d length %d received!\n", __func__, hdr.message, hdr.length);
 	}
 	if (payload) {
 		free(payload);
 	}
 	return 0;
+}
+
+static void device_monitor_cleanup(void* data)
+{
+	collection_free(&devices);
+
+	close_socket(listenfd);
+	listenfd = -1;
 }
 
 /**
@@ -582,6 +597,9 @@ static void *device_monitor(void *data)
 {
 	collection_init(&devices);
 
+#ifndef WIN32
+	pthread_cleanup_push(device_monitor_cleanup, NULL);
+#endif
 	while (event_cb) {
 
 		listenfd = usbmuxd_listen();
@@ -597,8 +615,11 @@ static void *device_monitor(void *data)
 		}
 	}
 
-	collection_free(&devices);
-
+#ifndef WIN32
+	pthread_cleanup_pop(1);
+#else
+	device_monitor_cleanup();
+#endif
 	return NULL;
 }
 
@@ -631,17 +652,15 @@ int usbmuxd_unsubscribe()
 {
 	event_cb = NULL;
 
+	shutdown_socket(listenfd, SHUT_RDWR);
+
 #ifdef WIN32
 	if (devmon != NULL) {
-		close_socket(listenfd);
-		listenfd = -1;
 		WaitForSingleObject(devmon, INFINITE);
 	}
 #else
 	if (pthread_kill(devmon, 0) == 0) {
-		close_socket(listenfd);
-		listenfd = -1;
-		pthread_kill(devmon, SIGINT);
+		pthread_cancel(devmon);
 		pthread_join(devmon, NULL);
 	}
 #endif
@@ -654,11 +673,14 @@ int usbmuxd_get_device_list(usbmuxd_device_info_t **device_list)
 	int sfd;
 	int listen_success = 0;
 	uint32_t res;
+	struct collection tmpdevs;
 	usbmuxd_device_info_t *newlist = NULL;
 	struct usbmuxd_header hdr;
-	struct usbmuxd_device_record *dev_info;
+	struct usbmuxd_device_record *dev;
 	int dev_cnt = 0;
 	void *payload = NULL;
+
+	*device_list = NULL;
 
 #ifdef HAVE_PLIST
 retry:
@@ -695,32 +717,46 @@ retry:
 		return -1;
 	}
 
-	*device_list = NULL;
+	collection_init(&tmpdevs);
+
 	// receive device list
 	while (1) {
 		if (receive_packet(sfd, &hdr, &payload, 1000) > 0) {
 			if (hdr.message == MESSAGE_DEVICE_ADD) {
-				dev_info = payload;
-				newlist = (usbmuxd_device_info_t *) realloc(*device_list, sizeof(usbmuxd_device_info_t) * (dev_cnt + 1));
-				if (newlist) {
-					newlist[dev_cnt].handle =
-						(int) dev_info->device_id;
-					newlist[dev_cnt].product_id =
-						dev_info->product_id;
-					memset(newlist[dev_cnt].uuid, '\0',
-						   sizeof(newlist[dev_cnt].uuid));
-					memcpy(newlist[dev_cnt].uuid,
-						   dev_info->serial_number,
-						   sizeof(newlist[dev_cnt].uuid));
-					*device_list = newlist;
-					dev_cnt++;
-				} else {
-					fprintf(stderr,
-						"%s: ERROR: out of memory when trying to realloc!\n",
-						__func__);
-					if (payload)
-						free(payload);
-					break;
+				dev = payload;
+				usbmuxd_device_info_t *devinfo = (usbmuxd_device_info_t*)malloc(sizeof(usbmuxd_device_info_t));
+				if (!devinfo) {
+					fprintf(stderr, "%s: Out of memory!\n", __func__);
+					free(payload);
+					return -1;
+				}
+
+				devinfo->handle = dev->device_id;
+				devinfo->product_id = dev->product_id;
+				memset(devinfo->udid, '\0', sizeof(devinfo->udid));
+				memcpy(devinfo->udid, dev->serial_number, sizeof(devinfo->udid));
+
+				if (strcasecmp(devinfo->udid, "ffffffffffffffffffffffffffffffffffffffff") == 0) {
+					sprintf(devinfo->udid + 32, "%08x", devinfo->handle);
+				}
+
+				collection_add(&tmpdevs, devinfo);
+
+			} else if (hdr.message == MESSAGE_DEVICE_REMOVE) {
+				uint32_t handle;
+				usbmuxd_device_info_t *devinfo = NULL;
+
+				memcpy(&handle, payload, sizeof(uint32_t));
+
+				FOREACH(usbmuxd_device_info_t *di, &tmpdevs) {
+					if (di && di->handle == handle) {
+						devinfo = di;
+						break;
+					}
+				} ENDFOREACH
+				if (devinfo) {
+					collection_remove(&tmpdevs, devinfo);
+					free(devinfo);
 				}
 			} else {
 				fprintf(stderr, "%s: Unexpected message %d\n", __func__, hdr.message);
@@ -737,9 +773,19 @@ retry:
 	// explicitly close connection
 	close_socket(sfd);
 
-	// terminating zero record
-	newlist = (usbmuxd_device_info_t*) realloc(*device_list, sizeof(usbmuxd_device_info_t) * (dev_cnt + 1));
-	memset(newlist + dev_cnt, 0, sizeof(usbmuxd_device_info_t));
+	// create copy of device info entries from collection
+	newlist = (usbmuxd_device_info_t*)malloc(sizeof(usbmuxd_device_info_t) * (collection_count(&tmpdevs) + 1));
+	dev_cnt = 0;
+	FOREACH(usbmuxd_device_info_t *di, &tmpdevs) {
+		if (di) {
+			memcpy(&newlist[dev_cnt], di, sizeof(usbmuxd_device_info_t));
+			free(di);
+			dev_cnt++;
+		}
+	} ENDFOREACH
+	collection_free(&tmpdevs);
+
+	memset(&newlist[dev_cnt], 0, sizeof(usbmuxd_device_info_t));
 	*device_list = newlist;
 
 	return dev_cnt;
@@ -753,7 +799,7 @@ int usbmuxd_device_list_free(usbmuxd_device_info_t **device_list)
 	return 0;
 }
 
-int usbmuxd_get_device_by_uuid(const char *uuid, usbmuxd_device_info_t *device)
+int usbmuxd_get_device_by_udid(const char *udid, usbmuxd_device_info_t *device)
 {
 	usbmuxd_device_info_t *dev_list = NULL;
 
@@ -767,17 +813,17 @@ int usbmuxd_get_device_by_uuid(const char *uuid, usbmuxd_device_info_t *device)
 	int i;
 	int result = 0;
 	for (i = 0; dev_list[i].handle > 0; i++) {
-	 	if (!uuid) {
+	 	if (!udid) {
 			device->handle = dev_list[i].handle;
 			device->product_id = dev_list[i].product_id;
-			strcpy(device->uuid, dev_list[i].uuid);
+			strcpy(device->udid, dev_list[i].udid);
 			result = 1;
 			break;
 		}
-		if (!strcmp(uuid, dev_list[i].uuid)) {
+		if (!strcmp(udid, dev_list[i].udid)) {
 			device->handle = dev_list[i].handle;
 			device->product_id = dev_list[i].product_id;
-			strcpy(device->uuid, dev_list[i].uuid);
+			strcpy(device->udid, dev_list[i].udid);
 			result = 1;
 			break;
 		}
