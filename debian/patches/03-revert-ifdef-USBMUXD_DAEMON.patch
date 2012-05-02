@@ -3,9 +3,9 @@
 
 Index: usbmuxd/common/utils.c
 ===================================================================
---- usbmuxd.orig/common/utils.c	2010-11-28 00:19:47.000000000 +0100
-+++ usbmuxd/common/utils.c	2011-03-20 13:59:11.000000000 +0100
-@@ -35,7 +35,6 @@
+--- usbmuxd.orig/common/utils.c	2012-05-02 10:29:12.000000000 +0200
++++ usbmuxd/common/utils.c	2012-05-02 10:34:00.000000000 +0200
+@@ -36,7 +36,6 @@
  # define util_error(...) fprintf(stderr, __VA_ARGS__)
  #endif
  
@@ -13,7 +13,7 @@ Index: usbmuxd/common/utils.c
  void fdlist_create(struct fdlist *list)
  {
  	list->count = 0;
-@@ -71,7 +70,6 @@
+@@ -72,7 +71,6 @@
  {
  	list->count = 0;
  }
@@ -23,9 +23,9 @@ Index: usbmuxd/common/utils.c
  {
 Index: usbmuxd/common/utils.h
 ===================================================================
---- usbmuxd.orig/common/utils.h	2010-11-28 00:19:47.000000000 +0100
-+++ usbmuxd/common/utils.h	2011-03-20 13:59:11.000000000 +0100
-@@ -22,7 +22,6 @@
+--- usbmuxd.orig/common/utils.h	2012-05-02 10:29:12.000000000 +0200
++++ usbmuxd/common/utils.h	2012-05-02 10:34:00.000000000 +0200
+@@ -23,7 +23,6 @@
  #ifndef __UTILS_H__
  #define __UTILS_H__
  
@@ -33,7 +33,7 @@ Index: usbmuxd/common/utils.h
  #include <poll.h>
  
  enum fdowner {
-@@ -42,7 +41,6 @@
+@@ -43,7 +42,6 @@
  void fdlist_add(struct fdlist *list, enum fdowner owner, int fd, short events);
  void fdlist_free(struct fdlist *list);
  void fdlist_reset(struct fdlist *list);
