@@ -6,8 +6,6 @@ libusbmuxd.so.2 libusbmuxd2 #MINVER#
  collection_free@Base 1.0.0
  collection_init@Base 1.0.0
  collection_remove@Base 1.0.0
-#Removed upstream, only used on WIN32 http://cgit.sukimashita.com/usbmuxd.git/commit/?id=5e9c1c28c6959a814818c7f3614ef84cadccf1c8
-#MISSING: 1.0.5-1# connect_socket@Base 1.0.0
  connect_unix_socket@Base 1.0.0
  create_socket@Base 1.0.0
  create_unix_socket@Base 1.0.0
@@ -17,15 +15,17 @@ libusbmuxd.so.2 libusbmuxd2 #MINVER#
  fdlist_free@Base 1.0.0
  fdlist_reset@Base 1.0.0
  get_next_event@Base 1.0.0
+ mutex@Base 1.0.8
  peek_buf@Base 1.0.0
  recv_buf@Base 1.0.0
  recv_buf_timeout@Base 1.0.0
  send_buf@Base 1.0.0
+ shutdown_socket@Base 1.0.8
  sock_stuff_set_verbose@Base 1.0.0
  usbmuxd_connect@Base 1.0.0
  usbmuxd_device_list_free@Base 1.0.0
  usbmuxd_disconnect@Base 1.0.0
- usbmuxd_get_device_by_uuid@Base 1.0.0
+ usbmuxd_get_device_by_udid@Base 1.0.8
  usbmuxd_get_device_list@Base 1.0.0
  usbmuxd_recv@Base 1.0.0
  usbmuxd_recv_timeout@Base 1.0.0
